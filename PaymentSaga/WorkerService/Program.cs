@@ -1,4 +1,5 @@
 using Zeebe.Client;
+using Zeebe.Client.Accelerator.Extensions;
 
 namespace WorkerService
 {
@@ -8,17 +9,9 @@ namespace WorkerService
         {
             var builder = Host.CreateApplicationBuilder(args);
 
-			builder.Services.AddSingleton<IZeebeClient>(sp =>
-			{
-				var config = sp.GetRequiredService<IConfiguration>();
-				var gatewayAddress = config["Zeebe:GatewayAddress"];
-				ArgumentNullException.ThrowIfNullOrEmpty(gatewayAddress);
-
-				return ZeebeClient.Builder()
-					.UseGatewayAddress(gatewayAddress)
-					.UsePlainText()
-					.Build();
-			});
+			builder.Services.BootstrapZeebe(
+				builder.Configuration.GetSection("Zeebe"),
+				typeof(Program).Assembly);
 
 			builder.Services.AddHostedService<Worker>();
 
