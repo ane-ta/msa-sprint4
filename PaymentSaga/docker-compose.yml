@@ -132,7 +132,7 @@
     ports:
       - "3000:3000"
     environment:
-      - ZEEBE_ADDRESS=zeebe:26500
+      - ZEEBE__GATEWAYADDRESS=zeebe:26500
     networks:
       - camunda-platform
     depends_on:
