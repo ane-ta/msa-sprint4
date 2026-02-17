@@ -10,10 +10,10 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["WorkerService/WorkerService.csproj", "WorkerService/"]
-RUN dotnet restore "./WorkerService/WorkerService.csproj"
+COPY ["WorkerService.csproj", "./"]
+RUN dotnet restore "./WorkerService.csproj"
 COPY . .
-WORKDIR "/src/WorkerService"
+
 RUN dotnet build "./WorkerService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Этот этап используется для публикации проекта службы, который будет скопирован на последний этап
