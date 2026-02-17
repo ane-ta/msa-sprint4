@@ -1,7 +1,7 @@
 using Zeebe.Client;
 using Zeebe.Client.Accelerator.Extensions;
 
-namespace WorkerService
+namespace WorkerService.EntryPoint
 {
     public class Program
     {

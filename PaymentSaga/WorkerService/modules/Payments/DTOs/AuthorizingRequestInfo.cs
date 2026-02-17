@@ -1,4 +1,4 @@
-namespace WorkerService.Authorizing
+namespace WorkerService.modules.Payments.DTOs
 {
 	public class AuthorizingRequestInfo
 	{

@@ -1,9 +1,10 @@
+using WorkerService.modules.Payments.DTOs;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
 using Zeebe.Client.Api.Responses;
 using Zeebe.Client.Api.Worker;
 
-namespace WorkerService.Authorizing
+namespace WorkerService.modules.Payments.Workers
 {
 	[JobType("Authorizing")]
 	public class AuthorizingWorker : IAsyncZeebeWorkerWithResult<AuthorizingResultInfo>

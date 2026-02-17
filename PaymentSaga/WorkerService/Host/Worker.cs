@@ -3,7 +3,7 @@ using Zeebe.Client;
 using Zeebe.Client.Api.Responses;
 using Zeebe.Client.Api.Worker;
 
-namespace WorkerService
+namespace WorkerService.EntryPoint
 {
 
 	public class Worker : BackgroundService
