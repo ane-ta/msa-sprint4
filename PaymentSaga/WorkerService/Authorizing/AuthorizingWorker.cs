@@ -17,9 +17,7 @@ namespace WorkerService.Authorizing
 
 		public async Task<AuthorizingResultInfo> HandleJob(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			_logger.LogInformation("[{JobKey}] Бронирование средств...", job.Key);
-
-			await Task.Delay(500);
+			_logger.LogInformation("[{JobKey}] Authorizing payment...", job.Key);
 
 			var info = job.getVariables<AuthorizingRequestInfo>();
 
