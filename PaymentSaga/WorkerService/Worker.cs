@@ -8,13 +8,13 @@ namespace WorkerService
 
 	public class Worker : BackgroundService
     {
-		private readonly IZeebeClient _zeebeClient;
+//		private readonly IZeebeClient _zeebeClient;
         private readonly ILogger<Worker> _logger;
 		private readonly List<IJobWorker> _workers = new();
 
-		public Worker(IZeebeClient zeebeClient, ILogger<Worker> logger)
+		public Worker(/*IZeebeClient zeebeClient, */ILogger<Worker> logger)
 		{
-			_zeebeClient = zeebeClient;
+			//_zeebeClient = zeebeClient;
 			_logger = logger;
 		}
 
@@ -60,12 +60,13 @@ namespace WorkerService
 
 		private IJobWorker CreateWorker(string jobType, JobHandler handler)
 		{
-			return _zeebeClient.NewWorker()
-				.JobType(jobType)
-				.Handler(handler)
-				.MaxJobsActive(5)
-				.AutoCompletion() // Сам завершит задачу, если не было исключений
-				.Open();
+			return null;
+			//return _zeebeClient.NewWorker()
+			//	.JobType(jobType)
+			//	.Handler(handler)
+			//	.MaxJobsActive(5)
+			//	.AutoCompletion() // Сам завершит задачу, если не было исключений
+			//	.Open();
 		}
 
 		private async void HandleReserveFunds(IJobClient client, IJob job)
