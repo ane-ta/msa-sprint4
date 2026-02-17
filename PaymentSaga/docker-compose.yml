@@ -127,17 +127,19 @@
       sleep 30;
       "
 
-  worker-service:
-    build: ./WorkerService
-    ports:
-      - "3000:3000"
-    environment:
-      - ZEEBE__GATEWAYADDRESS=zeebe:26500
-    networks:
-      - camunda-platform
-    depends_on:
-      zeebe:
-        condition: service_healthy
+  # worker-service:
+  #   build: ./WorkerService
+  #   env_file:
+  #     - ./WorkerService/.env
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - ZEEBE_ADDRESS=zeebe:26500
+  #   networks:
+  #     - camunda-platform
+  #   depends_on:
+  #     zeebe:
+  #       condition: service_started
 
 volumes:
   zeebe:
