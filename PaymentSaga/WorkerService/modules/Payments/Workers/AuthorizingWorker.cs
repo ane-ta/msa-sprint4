@@ -1,4 +1,5 @@
 using WorkerService.modules.Payments.DTOs;
+using WorkerService.Shared.Contracts;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
 
@@ -18,7 +19,7 @@ namespace WorkerService.modules.Payments.Workers
 		{
 			_logger.LogInformation("[{JobKey}] Authorizing payment...", job.Key);
 
-			var info = job.getVariables<AuthorizingRequestInfo>();
+			var info = job.getVariables<OrderPaymentInfo>();
 
 			return new AuthorizingResultInfo(AuthorizingStatus.Success, true, $"Reservation for Order {info.OrderId}");
 		}

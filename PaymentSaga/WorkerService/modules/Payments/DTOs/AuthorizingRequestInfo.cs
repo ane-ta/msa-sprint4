@@ -1,11 +1,8 @@
+using WorkerService.Shared.Contracts;
+
 namespace WorkerService.modules.Payments.DTOs
 {
-	public class AuthorizingRequestInfo
+	public record AuthorizingRequestInfo(string OrderId, string CustomerId, decimal Amount, string Currency) 
 	{
-		public string? OrderId { get; set; }
-		public string? CustomerId { get; set; }
-
-		public decimal Amount { get; set; }
-		public string? Currency { get; set; }
 	}
 }
