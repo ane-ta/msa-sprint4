@@ -7,7 +7,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WorkerService.modules.Ordering.Contracts;
+using WorkerService.Shared.Contracts;
 using Zeebe.Client;
+using Zeebe.Client.Accelerator.Extensions;
 
 namespace WorkerService.modules.Ordering.Api
 {
@@ -29,27 +31,36 @@ namespace WorkerService.modules.Ordering.Api
 		public async Task<IActionResult> StartPayment([FromBody]CreateOrderRequest request)
 		{
 			// 1. Формируем стартовые переменные процесса
-			var startVariables = new
+			var orderInfo = new OrderPaymentInfo()
 			{
-				orderId = Guid.NewGuid().ToString(),
-				amount = request.info.Amount,
-				customerId = request.info.CustomerId,
-				currency = request.info.Currency,
-				traceId = HttpContext.TraceIdentifier // Полезно для логов
+				OrderId = Guid.NewGuid().ToString(),
+				CustomerId = request.info.CustomerId,
+				Amount = request.info.Amount,
+				Currency = request.info.Currency,
+			};
+			var traceInfo = new
+			{
+				TraceId = HttpContext.TraceIdentifier // Полезно для логов
 			};
 
 			// 2. Отправляем команду в Zeebe
 			var result = await _zeebeClient.NewCreateProcessInstanceCommand()
 				.BpmnProcessId(_processId) // ID из вашей BPMN схемы
 				.LatestVersion()
-				.Variables(JsonSerializer.Serialize(startVariables))
+				.State(new { 
+					orderInfo.OrderId,
+					orderInfo.CustomerId,
+					orderInfo.Amount,
+					orderInfo.Currency,
+
+					traceInfo.TraceId,
+				})
 				.Send();
 
-			// 3. Возвращаем ID процесса клиенту
 			return Ok(new
 			{
 				ProcessInstanceKey = result.ProcessInstanceKey,
-				OrderId = startVariables.orderId
+				OrderId = orderInfo.OrderId
 			});
 		}
 

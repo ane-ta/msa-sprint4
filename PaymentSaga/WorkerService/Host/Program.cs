@@ -1,5 +1,8 @@
 using Google.Protobuf.WellKnownTypes;
+using System.Text.Json;
 using Zeebe.Client;
+using Zeebe.Client.Accelerator;
+using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Extensions;
 
 namespace WorkerService.EntryPoint
@@ -12,7 +15,18 @@ namespace WorkerService.EntryPoint
 
 			builder.Services.BootstrapZeebe(
 				builder.Configuration.GetSection("Zeebe"),
-				typeof(Program).Assembly);
+				typeof(Program).Assembly)
+			;
+
+			builder.Services.AddSingleton<IZeebeVariablesSerializer>(sp =>
+			{
+				var options = new JsonSerializerOptions
+				{
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+					PropertyNameCaseInsensitive = true
+				};
+				return new ZeebeVariablesSerializer(options);
+			});
 
 			builder.Services.AddHostedService<Worker>();
 
