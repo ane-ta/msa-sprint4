@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorkerService.modules.Payments.DTOs;
 using WorkerService.modules.Security.DTOs;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
@@ -23,7 +24,9 @@ namespace WorkerService.modules.Security.Workers
 		{
 			_logger.LogInformation("[{JobKey}] Running Safety AutoCheck...", job.Key);
 
-			return new AutoSafetyCheckResult(Guid.NewGuid().ToString(), AutoSafetyCheckStatus.Allow, null);
+			var info = job.getVariables<AutoSafetyCheckRequest>();
+
+			return new AutoSafetyCheckResult(AutoSafetyCheckStatus.Allow, null);
 		}
 	}
 }
