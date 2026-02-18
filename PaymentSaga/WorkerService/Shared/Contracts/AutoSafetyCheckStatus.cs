@@ -3,7 +3,7 @@
 namespace WorkerService.modules.Security.DTOs
 {
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum AutoSafetyCheckStatus
+	public enum SafetyAutoCheckStatus
 	{
 		Allow,
 		Block,
