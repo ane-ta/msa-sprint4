@@ -1,8 +1,6 @@
 using WorkerService.modules.Payments.DTOs;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
-using Zeebe.Client.Api.Responses;
-using Zeebe.Client.Api.Worker;
 
 namespace WorkerService.modules.Payments.Workers
 {
@@ -22,12 +20,7 @@ namespace WorkerService.modules.Payments.Workers
 
 			var info = job.getVariables<AuthorizingRequestInfo>();
 
-			return new AuthorizingResultInfo
-				{
-					Status = ReservationStatus.SUCCESS,
-					ReservationId = $"Reservation for Order {info.OrderId}",
-					FundsReserved = true
-				};
+			return new AuthorizingResultInfo(AuthorizingStatus.Success, true, $"Reservation for Order {info.OrderId}");
 		}
 	}
 }
