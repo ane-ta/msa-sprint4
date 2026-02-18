@@ -20,12 +20,22 @@ namespace WorkerService.EntryPoint
 
 			builder.Services.AddSingleton<IZeebeVariablesSerializer>(sp =>
 			{
-				var options = new JsonSerializerOptions
+				var jsonOptions = new JsonSerializerOptions
 				{
 					PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 					PropertyNameCaseInsensitive = true
 				};
-				return new ZeebeVariablesSerializer(options);
+				return new ZeebeVariablesSerializer(jsonOptions);
+			});
+
+			builder.Services.AddSingleton<IZeebeVariablesDeserializer>(sp =>
+			{
+				var jsonOptions = new JsonSerializerOptions
+				{
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+					PropertyNameCaseInsensitive = true
+				};
+				return new ZeebeVariablesDeserializer(jsonOptions);
 			});
 
 			builder.Services.AddHostedService<Worker>();
