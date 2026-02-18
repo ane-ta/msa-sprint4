@@ -24,7 +24,7 @@ namespace WorkerService.modules.Notifications.Workers
 		{
 			var info = job.getVariables<OrderPaymentInfo>();
 
-			_logger.LogInformation($"[{job.Key}] Notifying client about successful payment... {info.OrderId}");
+			_logger.LogInformation($"[{job.Key}] Notifying client about successful payment for {info.OrderId}...");
 		}
 	}
 }

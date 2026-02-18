@@ -19,7 +19,7 @@ namespace WorkerService.modules.Notifications.Workers
 		{
 			var info = job.getVariables<OrderPaymentInfo>();
 
-			_logger.LogInformation($"[{job.Key}] Notifying safety service about order payment status... {info.OrderId}");
+			_logger.LogInformation($"[{job.Key}] Notifying safety service about blocked transaction for order {info.OrderId}...");
 		}
 	}
 }
