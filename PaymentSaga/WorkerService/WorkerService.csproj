@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -17,8 +17,6 @@
   <ItemGroup>
     <Folder Include="Authorizing\" />
     <Folder Include="modules\Payments\Services\" />
-    <Folder Include="modules\Security\Workers\" />
-    <Folder Include="modules\Security\DTOs\" />
     <Folder Include="modules\Security\Services\" />
     <Folder Include="Shared\Infrustructure\" />
     <Folder Include="Shared\Contracts\" />
