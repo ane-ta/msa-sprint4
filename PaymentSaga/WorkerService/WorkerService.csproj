@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <Folder Include="Authorizing\" />
+    <Folder Include="modules\Notifications\DTOs\" />
+    <Folder Include="modules\Notifications\Services\" />
     <Folder Include="modules\Payments\Services\" />
     <Folder Include="modules\Security\Services\" />
     <Folder Include="Shared\Infrustructure\" />
