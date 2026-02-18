@@ -1,4 +1,5 @@
 using WorkerService.modules.Payments.DTOs;
+using WorkerService.Shared.Contracts;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
 
@@ -16,11 +17,11 @@ namespace WorkerService.modules.Payments.Workers
 
 		public async Task<FundsCapturingResultInfo> HandleJob(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			_logger.LogInformation("[{JobKey}] Authorizing payment...", job.Key);
+			_logger.LogInformation("[{JobKey}] Capturing payment...", job.Key);
 
 			var info = job.getVariables<FundsCapturingRequestInfo>();
 
-			return new FundsCapturingResultInfo(FundsCapturingStatus.Success, $"Reservation for Order {info.OrderId} released");
+			return new FundsCapturingResultInfo(FundsCapturingStatus.Success, $"Funds captured");
 		}
 	}
 }

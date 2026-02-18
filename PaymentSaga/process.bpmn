@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="dd3b335" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="3e38ded" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
   <bpmn:process id="Process_1pihpte" name="New BPMN diagram" isExecutable="true">
     <bpmn:extensionElements>
       <zeebe:versionTag value="v1.0" />
     </bpmn:extensionElements>
     <bpmn:startEvent id="StartEvent_1" name="Заказ создан">
-      <bpmn:extensionElements>
-        <zeebe:ioMapping>
-          <zeebe:output source="=OrderId" target="orderId" />
-          <zeebe:output source="=customerId" target="customerId" />
-          <zeebe:output source="=amount" target="amount" />
-          <zeebe:output source="=currency" target="currency" />
-          <zeebe:output source="=metadata" target="metadata" />
-        </zeebe:ioMapping>
-      </bpmn:extensionElements>
+      <bpmn:extensionElements />
       <bpmn:outgoing>Flow_1d9h3va</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:serviceTask id="Activity_1ha5772" name="Бронирование средств на счете">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="Authorizing" />
-        <zeebe:ioMapping>
-          <zeebe:input source="=orderId" target="OrderId" />
-          <zeebe:input source="=customerId" target="CustomerId" />
-          <zeebe:input source="=amount" target="Amount" />
-          <zeebe:input source="=currency" target="Currency" />
-          <zeebe:output source="=FundsReserved" target="fundsReserved" />
-          <zeebe:output source="=Status" target="authorizingStatus" />
-          <zeebe:output source="=ReservationId" target="reservationId" />
-        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1d9h3va</bpmn:incoming>
       <bpmn:outgoing>Flow_0crhcex</bpmn:outgoing>
@@ -203,9 +186,25 @@
         <dc:Bounds x="1420" y="80" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1myulpk_di" bpmnElement="Activity_1myulpk">
+        <dc:Bounds x="1420" y="690" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_10p8gfz_di" bpmnElement="Activity_10p8gfz">
         <dc:Bounds x="540" y="268" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01y2en1_di" bpmnElement="Event_01y2en1">
+        <dc:Bounds x="1792" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1770" y="145" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ter6ab_di" bpmnElement="Event_1ter6ab">
+        <dc:Bounds x="1782" y="712" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1763" y="755" width="75" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_14ofvmv_di" bpmnElement="Activity_1xz2s3j">
         <dc:Bounds x="1000" y="268" width="100" height="80" />
@@ -216,28 +215,12 @@
       <bpmndi:BPMNShape id="Gateway_14v1mv0_di" bpmnElement="Gateway_1vy97tx" isMarkerVisible="true">
         <dc:Bounds x="1255" y="95" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_01y2en1_di" bpmnElement="Event_01y2en1">
-        <dc:Bounds x="1792" y="102" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1770" y="145" width="81" height="14" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="Gateway_1sw3xqv_di" bpmnElement="Gateway_1sw3xqv" isMarkerVisible="true">
+        <dc:Bounds x="1445" y="605" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_12tnvxk_di" bpmnElement="Activity_127dzyt">
         <dc:Bounds x="1590" y="80" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1myulpk_di" bpmnElement="Activity_1myulpk">
-        <dc:Bounds x="1420" y="690" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1ter6ab_di" bpmnElement="Event_1ter6ab">
-        <dc:Bounds x="1782" y="712" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1763" y="755" width="75" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1sw3xqv_di" bpmnElement="Gateway_1sw3xqv" isMarkerVisible="true">
-        <dc:Bounds x="1445" y="605" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0gbjkbs_di" bpmnElement="Activity_0f1vle9">
         <dc:Bounds x="1600" y="690" width="100" height="80" />
@@ -312,6 +295,10 @@
         <di:waypoint x="1520" y="120" />
         <di:waypoint x="1590" y="120" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_080hxke_di" bpmnElement="Flow_080hxke">
+        <di:waypoint x="1520" y="730" />
+        <di:waypoint x="1600" y="730" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ufo7c4_di" bpmnElement="Flow_1ufo7c4">
         <di:waypoint x="1100" y="308" />
         <di:waypoint x="1255" y="308" />
@@ -369,6 +356,10 @@
         <di:waypoint x="1305" y="120" />
         <di:waypoint x="1420" y="120" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1u80ys3_di" bpmnElement="Flow_1u80ys3">
+        <di:waypoint x="1470" y="655" />
+        <di:waypoint x="1470" y="690" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ssabur_di" bpmnElement="Flow_1ssabur">
         <di:waypoint x="590" y="366" />
         <di:waypoint x="590" y="630" />
@@ -396,14 +387,6 @@
       <bpmndi:BPMNEdge id="Flow_154ohq2_di" bpmnElement="Flow_154ohq2">
         <di:waypoint x="1690" y="120" />
         <di:waypoint x="1792" y="120" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1u80ys3_di" bpmnElement="Flow_1u80ys3">
-        <di:waypoint x="1470" y="655" />
-        <di:waypoint x="1470" y="690" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_080hxke_di" bpmnElement="Flow_080hxke">
-        <di:waypoint x="1520" y="730" />
-        <di:waypoint x="1600" y="730" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1fwsxs7_di" bpmnElement="Flow_1fwsxs7">
         <di:waypoint x="1700" y="730" />

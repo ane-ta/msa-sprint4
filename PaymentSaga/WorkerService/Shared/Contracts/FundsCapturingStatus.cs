@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace WorkerService.modules.Payments.DTOs
+namespace WorkerService.Shared.Contracts
 {
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 
