@@ -16,11 +16,11 @@ namespace WorkerService.modules.Payments.Workers
 
 		public async Task<FundsReleasingResultInfo> HandleJob(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			_logger.LogInformation("[{JobKey}] Authorizing payment...", job.Key);
+			_logger.LogInformation("[{JobKey}] Releasing payment...", job.Key);
 
 			var info = job.getVariables<FundsReleasingRequestInfo>();
 
-			return new FundsReleasingResultInfo(FundsReleasingStatus.Success, $"Reservation for Order {info.OrderId} released");
+			return new FundsReleasingResultInfo(FundsReleasingStatus.Success, $"Funds are released");
 		}
 	}
 }
