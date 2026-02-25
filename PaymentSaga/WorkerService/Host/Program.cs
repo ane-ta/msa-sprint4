@@ -1,4 +1,5 @@
 using Google.Protobuf.WellKnownTypes;
+using Serilog;
 using System.Text.Json;
 using Zeebe.Client;
 using Zeebe.Client.Accelerator;
@@ -12,6 +13,13 @@ namespace WorkerService.EntryPoint
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+			Log.Logger = new LoggerConfiguration()
+				.ReadFrom.Configuration(builder.Configuration)
+				.CreateLogger();
+
+			builder.Logging.ClearProviders();
+			builder.Logging.AddSerilog();
 
 			builder.Services.BootstrapZeebe(
 				builder.Configuration.GetSection("Zeebe"),
