@@ -21,12 +21,12 @@ namespace WorkerService.Shared.Infrustructure
 				new Dictionary<string, object>
 				{
 					["JobKey"] = job.Key,
-					["Executor"] = GetType().Name
-				});
+					["JobType"] = job.Type,
+				}); 
 
 			var businessKey = InitializeBusinessKeyWithLogging(job);
 
-			using var businessLoggerScope = _logger.BeginScope(
+			using var businessLoggerScope = _logger.BeginScope( 
 				new Dictionary<string, object>
 				{
 					[businessKey.Name] = businessKey.Value,
