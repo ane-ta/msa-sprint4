@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WorkerService.Shared.Contracts
 {
+
 	public interface IOrderPaymentInfo 
 	{
 		string OrderId { get; }

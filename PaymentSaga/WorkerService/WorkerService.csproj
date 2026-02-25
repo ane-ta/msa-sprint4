@@ -24,6 +24,5 @@
     <Folder Include="modules\Ordering\Infrastructure\" />
     <Folder Include="modules\Payments\Services\" />
     <Folder Include="modules\Security\Services\" />
-    <Folder Include="Shared\Infrustructure\" />
   </ItemGroup>
 </Project>
