@@ -156,7 +156,7 @@
       <bpmn:outgoing>Flow_0zz223d</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_07aujbk" name="Средства забронированы" sourceRef="Gateway_0sa3y8y" targetRef="Activity_10p8gfz">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=FundsAuthorizingResult=Success</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=fundsAuthorized=true</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="Gateway_1asjq84">
       <bpmn:incoming>Flow_1ssabur</bpmn:incoming>
