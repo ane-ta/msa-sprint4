@@ -6,27 +6,24 @@ using System.Threading.Tasks;
 using WorkerService.modules.Payments.DTOs;
 using WorkerService.modules.Security.DTOs;
 using WorkerService.Shared.Contracts;
+using WorkerService.Shared.Infrustructure;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
 
 namespace WorkerService.modules.Security.Workers
 {
 	[JobType("AutoSafetyCheck")]
-	internal class AutoSafetyCheckWorker : IAsyncZeebeWorkerWithResult<AutoSafetyCheckResult>
+	internal class AutoSafetyCheckWorker : AsyncZeebeFuncWorker<OrderPaymentBusinessKey, AutoSafetyCheckResult>
 	{
 		private readonly ILogger<AutoSafetyCheckWorker> _logger;
 
-		public AutoSafetyCheckWorker(ILogger<AutoSafetyCheckWorker> logger)
+		public AutoSafetyCheckWorker(ILogger<AutoSafetyCheckWorker> logger): base(logger)
 		{
 			_logger = logger;
 		}
 
-		public async Task<AutoSafetyCheckResult> HandleJob(ZeebeJob job, CancellationToken cancellationToken)
+		protected override Task<AutoSafetyCheckResult> HandleJobInnerFunction(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			_logger.LogInformation("[{JobKey}] Running Safety AutoCheck...", job.Key);
-
-			var info = job.getVariables<AutoSafetyCheckRequest>();
-
 			var random = new Random();
 			int chance = random.Next(1, 101); // 1 - 100
 
@@ -35,9 +32,9 @@ namespace WorkerService.modules.Security.Workers
 				<= 40 => new AutoSafetyCheckResult(SafetyAutoCheckStatus.Allow, null),
 				<= 80 => new AutoSafetyCheckResult(SafetyAutoCheckStatus.Block, "Something is suspicious"),
 				_ => new AutoSafetyCheckResult(SafetyAutoCheckStatus.ManualReviewRequired, "Something is ambiguous"),
-			};
-
-			return result;
+			}; 
+			
+			return Task.FromResult(result);
 		}
 	}
 }

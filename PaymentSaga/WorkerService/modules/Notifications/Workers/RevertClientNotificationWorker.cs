@@ -1,24 +1,23 @@
 ﻿using WorkerService.Shared.Contracts;
+using WorkerService.Shared.Infrustructure;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
 
 namespace WorkerService.modules.Notifications.Workers
 {
 	[JobType("RevertClientNotificating")]
-	internal class RevertClientNotificationWorker : IAsyncZeebeWorker
+	internal class RevertClientNotificationWorker : AsyncZeebeActionWorker<OrderPaymentBusinessKey>
 	{
 		private readonly ILogger<RevertClientNotificationWorker> _logger;
 
-		public RevertClientNotificationWorker(ILogger<RevertClientNotificationWorker> logger)
+		public RevertClientNotificationWorker(ILogger<RevertClientNotificationWorker> logger) : base (logger)
 		{
 			_logger = logger;
 		}
 
-		public async Task HandleJob(ZeebeJob job, CancellationToken cancellationToken)
+		protected override Task HandleJobInnerAction(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			var info = job.getVariables<OrderPaymentInfo>();
-
-			_logger.LogInformation($"[{job.Key}] Notifying client about reverted payment for order {info.OrderId}...");
+			return Task.CompletedTask;
 		}
 	}
 }

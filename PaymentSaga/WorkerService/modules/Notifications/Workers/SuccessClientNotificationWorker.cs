@@ -4,27 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkerService.modules.Payments.DTOs;
+using WorkerService.modules.Security.DTOs;
 using WorkerService.Shared.Contracts;
+using WorkerService.Shared.Infrustructure;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
 
 namespace WorkerService.modules.Notifications.Workers
 {	
 	[JobType("SuccessClientNotificating")]
-	internal class SuccessClientNotificationWorker : IAsyncZeebeWorker
+	internal class SuccessClientNotificationWorker : AsyncZeebeActionWorker<OrderPaymentBusinessKey>
 	{
 		private readonly ILogger<SuccessClientNotificationWorker> _logger;
 
-		public SuccessClientNotificationWorker(ILogger<SuccessClientNotificationWorker> logger)
+		public SuccessClientNotificationWorker(ILogger<SuccessClientNotificationWorker> logger):base(logger)
 		{
 			_logger = logger;
 		}
 
-		public async Task HandleJob(ZeebeJob job, CancellationToken cancellationToken)
+		protected override Task HandleJobInnerAction(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			var info = job.getVariables<OrderPaymentInfo>();
-
-			_logger.LogInformation($"[{job.Key}] Notifying client about successful payment for {info.OrderId}...");
+			return Task.CompletedTask;
 		}
 	}
 }

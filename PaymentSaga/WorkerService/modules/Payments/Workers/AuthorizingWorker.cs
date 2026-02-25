@@ -1,24 +1,23 @@
 using Microsoft.AspNetCore.Authorization;
 using WorkerService.Shared.Contracts;
+using WorkerService.Shared.Infrustructure;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Accelerator.Attributes;
 
 namespace WorkerService.modules.Payments.Workers
 {
 	[JobType("Authorizing")]
-	public class AuthorizingWorker : IAsyncZeebeWorkerWithResult<FundsAuthorizingResultInfo>
+	public class AuthorizingWorker : AsyncZeebeFuncWorker<OrderPaymentBusinessKey, FundsAuthorizingResultInfo>
 	{
 		private readonly ILogger<AuthorizingWorker> _logger;
 
-		public AuthorizingWorker(ILogger<AuthorizingWorker> logger)
+		public AuthorizingWorker(ILogger<AuthorizingWorker> logger) : base(logger)
 		{
 			_logger = logger;
 		}
 
-		public async Task<FundsAuthorizingResultInfo> HandleJob(ZeebeJob job, CancellationToken cancellationToken)
+		protected override async Task<FundsAuthorizingResultInfo> HandleJobInnerFunction(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			_logger.LogInformation("[{JobKey}] Authorizing payment...", job.Key);
-
 			var info = job.getVariables<OrderPaymentInfo>();
 
 			var random = new Random();
@@ -26,11 +25,11 @@ namespace WorkerService.modules.Payments.Workers
 
 			var result = chance switch
 			{
-				<= 50 => new FundsAuthorizingResultInfo( FundsAuthorizingStatus.Success, true, Guid.NewGuid().ToString()),
+				<= 50 => new FundsAuthorizingResultInfo(FundsAuthorizingStatus.Success, true, Guid.NewGuid().ToString()),
 				_ => new FundsAuthorizingResultInfo(FundsAuthorizingStatus.InsufficientFunds, false, null),
 			};
 
-			return result;
+			return await Task.FromResult(result);
 		}
 	}
 }
