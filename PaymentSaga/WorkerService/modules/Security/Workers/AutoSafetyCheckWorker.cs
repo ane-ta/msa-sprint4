@@ -15,6 +15,7 @@ namespace WorkerService.modules.Security.Workers
 	[JobType("AutoSafetyCheck")]
 	internal class AutoSafetyCheckWorker : AsyncZeebeFuncWorker<OrderPaymentBusinessKey, AutoSafetyCheckResult>
 	{
+		private static readonly Random _random = new Random();
 		private readonly ILogger<AutoSafetyCheckWorker> _logger;
 
 		public AutoSafetyCheckWorker(ILogger<AutoSafetyCheckWorker> logger): base(logger)
@@ -24,8 +25,7 @@ namespace WorkerService.modules.Security.Workers
 
 		protected override Task<AutoSafetyCheckResult> HandleJobInnerFunction(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			var random = new Random();
-			int chance = random.Next(1, 101); // 1 - 100
+			int chance = _random.Next(1, 101); // 1 - 100
 
 			var result = chance switch
 			{

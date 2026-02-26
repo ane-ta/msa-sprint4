@@ -9,6 +9,7 @@ namespace WorkerService.modules.Payments.Workers
 	[JobType("Authorizing")]
 	public class AuthorizingWorker : AsyncZeebeFuncWorker<OrderPaymentBusinessKey, FundsAuthorizingResultInfo>
 	{
+		private static readonly Random _random = new Random(); 
 		private readonly ILogger<AuthorizingWorker> _logger;
 
 		public AuthorizingWorker(ILogger<AuthorizingWorker> logger) : base(logger)
@@ -20,8 +21,7 @@ namespace WorkerService.modules.Payments.Workers
 		{
 			var info = job.getVariables<OrderPaymentInfo>();
 
-			var random = new Random();
-			int chance = random.Next(1, 101); // 1 - 100
+			int chance = _random.Next(1, 101); // 1 - 100
 
 			var result = chance switch
 			{
