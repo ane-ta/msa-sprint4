@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using WorkerService.modules.Security.DTOs;
 using WorkerService.Shared.Contracts;
 using Zeebe.Client.Accelerator.Abstractions;
 using Zeebe.Client.Api.Responses;
@@ -20,8 +21,9 @@ namespace WorkerService.Shared.Infrustructure
 			using var technicalLoggerScope = _logger.BeginScope(
 				new Dictionary<string, object>
 				{
-					["JobKey"] = job.Key,
-					["JobType"] = job.Type,
+					["ProcessInstanceKey"] = job.ProcessInstanceKey,
+					["BpmnVersion"] = job.ProcessDefinitionVersion,
+					["BpmnElementId"] = job.ElementId
 				}); 
 
 			var businessKey = InitializeBusinessKeyWithLogging(job);
@@ -58,22 +60,27 @@ namespace WorkerService.Shared.Infrustructure
 		{
 			try
 			{
-				_logger.LogInformation($">>> [START]");
+				_logger.LogInformation(">>> [START] Job {JobType}", job.Type);
 
 				var result =  await HandleJobInnerFunction(job, ct);
 
-				_logger.LogInformation($"<<< [SUCCESS]");
+				var summary = result is ILoggableResult lr ? lr.ToLogSummary() : null;
+				_logger.LogInformation(
+					summary != null 
+						? "<<< [SUCCESS] {JobType}. Summary: {Summary}" 
+						: "<<< [SUCCESS] {JobType}"
+					, job.Type, summary);
 
 				return result;
 			}
 			catch (BpmnErrorException ex)
 			{
-				_logger.LogError(ex, $"<<< [BUSINESS-FAIL]");
+				_logger.LogError(ex, "<<< [BUSINESS-FAIL]");
 				throw;
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, $"<<< [FAIL]");
+				_logger.LogError(ex, "<<< [FAIL]");
 				throw;
 			}
 		}
