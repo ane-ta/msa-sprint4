@@ -112,6 +112,7 @@
       context: ./deploy-process
     volumes:
       - ./process.bpmn:/process.bpmn
+      - ./manual_check.form:/manual_check.form 
     depends_on:
       zeebe:
         condition: service_healthy
@@ -121,8 +122,9 @@
       "
       echo '⏳ Waiting for Zeebe...';
       until nc -z zeebe 26500; do sleep 5; done;
+      ls -l /process.bpmn /manual_check.form;
       echo '🚀 Deploying BPMN process...';
-      zbctl deploy /process.bpmn --host zeebe --port 26500 --insecure;
+      zbctl deploy resource /manual_check.form /process.bpmn --host zeebe --port 26500 --insecure; 
       echo '✅ Process deployed!';
       sleep 30;
       "
