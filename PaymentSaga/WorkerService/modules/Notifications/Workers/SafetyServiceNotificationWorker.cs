@@ -9,7 +9,7 @@ using Zeebe.Client.Accelerator.Attributes;
 namespace WorkerService.modules.Notifications.Workers
 {
 	[JobType("AutoRejectedTransactionNotificating")]
-	internal class SafetyServiceNotificationWorker : AsyncZeebeFuncWorker<OrderPaymentBusinessKey, Unit>
+	internal class SafetyServiceNotificationWorker : AsyncZeebeActionWorker<OrderPaymentBusinessKey>
 	{
 		private readonly ILogger<SafetyServiceNotificationWorker> _logger;
 
@@ -18,14 +18,9 @@ namespace WorkerService.modules.Notifications.Workers
 			_logger = logger;
 		}
 
-		//protected override Task HandleJobInnerAction(ZeebeJob job, CancellationToken cancellationToken)
-		//{
-		//	return Task.CompletedTask;
-		//}
-
-		protected override Task<Unit> HandleJobInnerFunction(ZeebeJob job, CancellationToken cancellationToken)
+		protected override Task HandleJobInnerAction(ZeebeJob job, CancellationToken cancellationToken)
 		{
-			return Task.FromResult(new Unit());
+			return Task.CompletedTask;
 		}
 	}
 }

@@ -28,7 +28,7 @@ namespace WorkerService.Shared.Infrustructure
 		{
 		}
 
-		async Task IAsyncZeebeWorker.HandleJob(ZeebeJob job, CancellationToken cancellationToken)
+		public new async Task HandleJob(ZeebeJob job, CancellationToken cancellationToken)
 		{
 			await HandleJobAction(job, cancellationToken);
 		}
