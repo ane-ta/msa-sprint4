@@ -1,0 +1,33 @@
+version: '3'
+
+includes:
+
+  arh:
+    taskfile: ./arch-tooling/scripts/Taskfile.yml
+    flatten: true
+
+vars:
+  TASK_RESULT_REL_DIR: '{{"./results"}}'
+
+tasks:
+# =====================
+  orchestrpay:export:all:  
+    desc: "OrchestrPay - export documents for tasks"
+    vars:
+      TASK_INDEXES: [1, 2, 5, 6]
+    cmds:
+      - for: { var: TASK_INDEXES, as: TASK_INDEX }
+        task: orchestrpay:task_org_to_md
+        vars:
+          TASK_DIR: '{{printf "Task%d" .TASK_INDEX | joinPath .ROOT_DIR }}'
+
+# =====================
+  orchestrpay:task_org_to_md:
+    requires:
+      vars:
+        [TASK_DIR] 
+    cmds:
+      - task: org-to-md:docker:render_tree
+        vars:
+          SOURCE_DIR: '{{joinPath .TASK_DIR "docs" }}'
+          DEST_DIR:   '{{joinPath .TASK_DIR "results" }}'
