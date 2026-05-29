@@ -1,0 +1,67 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "3e38ded"
+  },
+  "schemaVersion": 19,
+  "id": "Form_ManualCheck",
+  "components": [
+    {
+      "label": "ID транзакции",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_01s27i4",
+        "columns": 8
+      },
+      "id": "Field_0wk4uxs",
+      "key": "textfield_1akwm",
+      "readonly": true
+    },
+    {
+      "label": "ID клиента",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_01s27i4",
+        "columns": 8
+      },
+      "id": "Field_1q89no9",
+      "key": "textfield_g06sbc",
+      "readonly": true
+    },
+    {
+      "label": "Причина проверки",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0nt37jl",
+        "columns": null
+      },
+      "id": "Field_0szrbhv",
+      "key": "textfield_tadga",
+      "readonly": true
+    },
+    {
+      "label": "Решение",
+      "values": [
+        {
+          "label": "Разрешить",
+          "value": "Allow"
+        },
+        {
+          "label": "Запретить",
+          "value": "Block"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_0wt7v3p",
+        "columns": 16
+      },
+      "id": "Field_0uetwc3",
+      "key": "manualSafetyCheckResult",
+      "defaultValue": "Block"
+    }
+  ],
+  "type": "default"
+}
